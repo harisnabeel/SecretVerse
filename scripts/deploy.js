@@ -1,3 +1,6 @@
+const { updateContractAddresses } = require("../utils/contractsDetailsManager");
+const network = hre.hardhatArguments.network;
+
 const main = async () => {
   const [deployer] = await hre.ethers.getSigners();
   const accountBalance = await deployer.getBalance();
@@ -12,6 +15,12 @@ const main = async () => {
 
   console.log("SV Conctract address ", SV_CONTRACT_INSTANCE.address);
   // console.log(await SV_CONTRACT_INSTANCE.pluck());
+  updateContractAddresses(
+    {
+      address: SV_CONTRACT_INSTANCE.address,
+    },
+    network
+  );
 };
 
 const runMain = async () => {

@@ -1,0 +1,7 @@
+{
+  "hardhat": { "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3" },
+  "kovan": { "address": "" },
+  "rinkeby": { "address": "" },
+  "ropsten": { "address": "0x5A470A710d3D0e2aA51b1fd84f9a14f391cF35F5" },
+  "goerli": { "address": "" }
+}

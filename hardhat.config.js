@@ -34,7 +34,7 @@ task("createVault", "createsAVault").setAction(async (taskArgs) => {
   const SV_CONTRACT_INSTANCE = await getContractInstance();
 
   let tnx = await SV_CONTRACT_INSTANCE.connect(accounts[0]).createVault();
-  tnx.wait();
+  // tnx.wait();
   console.log(tnx);
 });
 
@@ -45,7 +45,7 @@ task("createVault", "createsAVault").setAction(async (taskArgs) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  solidity: "0.8.7",
   networks: {
     rinkeby: {
       url: `${secret.rinkeby_key}`,
@@ -54,6 +54,7 @@ module.exports = {
     ropsten: {
       url: `${secret.ropsten_key}`,
       accounts: [secret.key],
+      gasPrice: 50000000000,
     },
     goerli: {
       url: `${secret.goerli_key}`,
@@ -67,6 +68,7 @@ module.exports = {
   etherscan: {
     apiKey: {
       ropsten: `${secret.etherscan_key}`,
+      rinkeby: `${secret.etherscan_key}`,
     },
   },
 };

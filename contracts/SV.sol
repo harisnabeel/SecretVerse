@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import "hardhat/console.sol";
+
+// import "hardhat/console.sol";
 
 contract SV {
     uint256 tokenId = 0;
     uint256[] rarity_class_count = [2000, 3000, 3000, 1500, 500]; // index 0 = limit of vault with 5 traits, index 1 = limit of vault with 6 traits and so on..
     uint256[] rarity_class_count_tracker = [0, 0, 0, 0, 0]; // how much vaults of each rarity class are created, index 0 shows how much vaults are created of rarity class with 5 traits
-    string[] public weapon = [
+    string[] private weapon = [
         "W1",
         "W2",
         "W3",
@@ -33,7 +34,7 @@ contract SV {
         "W24",
         "W25"
     ];
-    string[] public body = [
+    string[] private body = [
         "B1",
         "B2",
         "B3",
@@ -61,7 +62,7 @@ contract SV {
         "B25"
     ];
 
-    string[] public face = [
+    string[] private face = [
         "F1",
         "F2",
         "F3",
@@ -88,7 +89,7 @@ contract SV {
         "F24",
         "F25"
     ];
-    string[] public city = [
+    string[] private city = [
         "C1",
         "C2",
         "C3",
@@ -115,7 +116,7 @@ contract SV {
         "C24",
         "C25"
     ];
-    string[] public transportation = [
+    string[] private transportation = [
         "T1",
         "T2",
         "T3",
@@ -142,7 +143,7 @@ contract SV {
         "T24",
         "T25"
     ];
-    string[] public book = [
+    string[] private book = [
         "Book1",
         "Book2",
         "Book3",
@@ -169,7 +170,7 @@ contract SV {
         "Book24",
         "Book25"
     ];
-    string[] public game = [
+    string[] private game = [
         "G1",
         "G2",
         "G3",
@@ -197,7 +198,7 @@ contract SV {
         "G25"
     ];
 
-    string[] public movie = [
+    string[] private movie = [
         "M1",
         "M2",
         "M3",
@@ -224,7 +225,7 @@ contract SV {
         "M24",
         "M25"
     ];
-    string[] public element = [
+    string[] private element = [
         "E1",
         "E2",
         "E3",
@@ -257,7 +258,7 @@ contract SV {
         uint256 _tokenId,
         string memory traitName,
         string[] memory sourceArray
-    ) public pure returns (string memory) {
+    ) internal pure returns (string memory) {
         //generate randomNumber against Asked trait and tokenId
         uint256 rand = random(
             string(abi.encodePacked(traitName, toString(_tokenId)))
@@ -327,6 +328,29 @@ contract SV {
             vault[8] = pluck(tokenId, "Element", element);
         }
 
+        // string memory test = string(
+        //     abi.encodePacked(
+        //         vault[0],
+        //         vault[1],
+        //         vault[2],
+        //         vault[3],
+        //         vault[4],
+        //         vault[5],
+        //         vault[6],
+        //         vault[7],
+        //         vault[8]
+        //     )
+        // );
+        // console.log(test);
+        // console.log(vault[0]);
+        // console.log(vault[1]);
+        // console.log(vault[2]);
+        // console.log(vault[3]);
+        // console.log(vault[4]);
+        // console.log(vault[5]);
+        // console.log(vault[6]);
+        // console.log(vault[7]);
+        // console.log(vault[8]);
         return vault;
     }
 
@@ -358,6 +382,46 @@ contract SV {
         }
 
         return randomArray;
+    }
+
+    function getBody(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Body", body);
+    }
+
+    function getWeapon(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Weapon", weapon);
+    }
+
+    function getFace(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Face", face);
+    }
+
+    function getCity(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "City", city);
+    }
+
+    function getTransportation(uint256 _tokenId)
+        public
+        view
+        returns (string memory)
+    {
+        return pluck(_tokenId, "Transportation", transportation);
+    }
+
+    function getBook(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Book", book);
+    }
+
+    function getGame(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Game", game);
+    }
+
+    function getMovie(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Movie", movie);
+    }
+
+    function getElement(uint256 _tokenId) public view returns (string memory) {
+        return pluck(_tokenId, "Element", element);
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
