@@ -2,6 +2,7 @@ require("@nomiclabs/hardhat-waffle");
 const { version } = require("chai");
 let secret = require("./secret.json");
 require("@nomiclabs/hardhat-etherscan");
+const fs = require("fs");
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -32,10 +33,44 @@ async function getContractInstance() {
 task("createVault", "createsAVault").setAction(async (taskArgs) => {
   const accounts = await hre.ethers.getSigners();
   const SV_CONTRACT_INSTANCE = await getContractInstance();
+  // generating 10000 vaults for testing
+  for (var i = 0; i < 10000; i++) {
+    let tnx = await SV_CONTRACT_INSTANCE.connect(accounts[0]).createVault();
+    const receipt = await tnx.wait();
+    const event = receipt.events.find(
+      (event) => event.event === "vaultCreated"
+    );
+    const data = event.args.toString();
 
-  let tnx = await SV_CONTRACT_INSTANCE.connect(accounts[0]).createVault();
-  // tnx.wait();
-  console.log(tnx);
+    try {
+      fs.appendFileSync("result.txt", data + "\n");
+    } catch (err) {
+      console.log("errr");
+    }
+  }
+  // await fs.appendFile("result.txt", data, "utf8", function (err) {
+  //   console.log("saasdasdasd");
+  //   if (err) throw err;
+  //   else {
+  //     // Get the file contents after the append operation
+  //     console.log(
+  //       "\nFile Contents of file after append:",
+  //       fs.readFileSync("result.txt", "utf8")
+  //     );
+  //   }
+  //   // if no error
+  //   console.log("Data is appended to file successfully.");
+  // });
+
+  // fs.writeFile("result.txt", "data", (err) => {
+  //   // fs.writeFile("pakistan");
+  //   console.log("data written");
+  //   // In case of a error throw err.
+  //   if (err) return console.log("error");
+  // });
+  // console.log(event.args.toString());
+  // await tnx.wait();
+  // console.log(tnx);
 });
 
 // You need to export an object to set up your config

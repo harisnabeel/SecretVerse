@@ -15,7 +15,7 @@ async function updateContractAddresses(contractAddress = {}, network) {
     for (const property in contractAddress) {
       dataInFile[network][property] = contractAddress[property];
     }
-    console.log("dataInFile ", dataInFile);
+    // console.log("dataInFile ", dataInFile);
     fs.writeFileSync(
       path.resolve(__dirname, "../contract-details.json"),
       JSON.stringify(dataInFile)
